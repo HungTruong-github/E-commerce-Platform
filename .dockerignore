@@ -1,0 +1,41 @@
+# Git
+.git/
+.github/
+
+# Dependencies & Package manager cache
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Test & coverage
+coverage/
+test-results/
+playwright-report/
+tests/
+
+# Environment files
+.env
+.env*.local
+.env.development
+.env.production
+.env.test
+
+# Documentation & IDE
+docs/
+.vscode/
+.idea/
+*.md
+LICENSE
+
+# Local data & logs
+*.log
+postgres_data/
+redis_data/
+tmp/
+temp/
+
