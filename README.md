@@ -1,6 +1,6 @@
-# NovaStore E-commerce Platform Monorepo
+# NovaStore – PC & Gaming Setup Customization Commerce Platform
 
-[![CI Quality Gate](https://github.com/organization/ecommerce-platform/actions/workflows/pr-check.yml/badge.svg)](https://github.com/organization/ecommerce-platform/actions/workflows/pr-check.yml)
+[![CI Quality Gate](https://github.com/HungTruong-github/E-commerce-Platform/actions/workflows/pr-check.yml/badge.svg)](https://github.com/HungTruong-github/E-commerce-Platform/actions/workflows/pr-check.yml)
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=node.js)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-9.x-orange?logo=pnpm)](https://pnpm.io/)
 [![NestJS](https://img.shields.io/badge/NestJS-10.x-E0234E?logo=nestjs)](https://nestjs.com/)
@@ -8,87 +8,151 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-A production-oriented, scalable E-commerce Platform monorepo engineered with a **Modular Monolith** backend and a **Feature-Driven** frontend.
-
 ---
 
 ## 1. Project Introduction
 
-NovaStore is an enterprise-grade e-commerce foundation built for high performance, maintainability, strict typing across full-stack boundaries, and cloud-native containerized deployment.
+**NovaStore** is a full-featured custom commerce platform specializing in computer hardware, gaming peripherals, mechanical keyboard components, desk setups, networking equipment, storage devices, and related accessories.
 
-The platform avoids premature microservices complexity by utilizing a Modular Monolith backend with clear bounded contexts, allowing horizontal scaling and frictionless future service extraction.
+This is **not** merely a PC Builder, a PC component shop, or a mechanical keyboard customization website. NovaStore is engineered to serve the complete spectrum of computing and gaming setup needs:
 
-### Current Implementation Status (Initialization Phase)
+1. **Individual Products**: Purchasing standalone computer hardware, displays, peripherals, desk furniture, and networking gear.
+2. **Prebuilt Computers**: Curated gaming PCs, creative workstations, AI/development workstations, and office desktops.
+3. **Interactive PC Builder**: Configuring custom desktop PCs from individual components with real-time hardware compatibility validation (socket, form factor, clearance, wattage).
+4. **Full Gaming & Workstation Setup Builder**: Configuring complete environments including desktop/laptop, displays, peripherals, desk, chair, monitor arms, acoustic/lighting accessories, and cable management.
+5. **Product Customizer**: Designing modular products (starting with mechanical keyboards: layouts, cases, switches, keycaps, plates, stabilizers, PCBs).
+6. **New and Used Product Inventory**: Transparently selling both brand-new items and professionally inspected, graded, and warrantied used goods.
+7. **AI Shopping Assistant (Planned)**: Natural language product consultation, setup recommendations, compatibility validation, and user-confirmed shopping cart operations through backend-controlled tool calling.
 
-- **Monorepo Architecture & Package Management**: Fully configured with pnpm Workspaces, unified lockfile, strict TypeScript base configs, and shared domain packages.
-- **Frontend Application (`apps/web`)**: Fully scaffolded React 18 + Vite SPA with TanStack Query v5, Zustand, React Router v6, Tailwind CSS, and Vitest testing suite.
-- **Backend Application (`apps/api`)**: Fully scaffolded NestJS 10 Modular Monolith with Prisma ORM, PostgreSQL schema, Redis/BullMQ worker structure, global exception filtering, logging, response transformation, Zod environment validation, and live Swagger OpenAPI documentation.
-- **Docker Infrastructure**: Multi-stage production Dockerfiles (non-root runtimes), local development Docker Compose (PostgreSQL 16 + Redis 7), and production reverse proxy with Nginx.
-- **Quality Gates**: Commitlint conventional commits, Husky git hooks, ESLint 9 flat configuration, Prettier, and GitHub Actions CI pipelines.
-- **Business Features**: Architectural boundaries established. Business domain logic (payment gateways, checkout flows, catalog manipulation) is scheduled for subsequent implementation phases.
+> [!NOTE]
+> **Implementation Status (Phase 0 Complete – Engineering Foundation)**  
+> This repository currently provides the verified monorepo architecture, workspace boundaries, CI quality gates, Docker development infrastructure, strict TypeScript configuration, and architectural specifications. Business domain logic, complete database redesign, configurators, and AI agents are explicitly scheduled for subsequent implementation phases.
 
 ---
 
-## 2. Technology Stack
+## 2. Business Model: Retailer-Owned Inventory (Model A)
 
-### Frontend (`apps/web`)
+NovaStore operates strictly as a **Store-Owned Retail Business / Retailer-Owned Inventory Model**:
 
-- **Core**: React 18, TypeScript, Vite
-- **Routing**: React Router 6 (SPA client-side routing)
-- **Server State**: TanStack Query v5 (caching, deduping, pagination)
-- **Client State**: Zustand (lightweight UI stores)
+- **Direct Inventory Ownership**: NovaStore purchases products from authorized manufacturers/distributors or acquires pre-owned goods directly. All stock is held and managed in NovaStore fulfillment facilities.
+- **Unified Quality Control**: Every used item undergoes technical inspection, cosmetic grading (Like New, Good, Fair), defect disclosure, and store warranty provisioning.
+- **Autonomous Pricing & Fulfillment**: NovaStore establishes prices (in integer VND), processes payments, packs, ships, and handles returns/after-sales support directly.
+
+### Explicit Non-Goals (Out of Scope)
+
+NovaStore is **not a multi-vendor marketplace**. The platform explicitly excludes:
+
+- Third-party seller registration, seller portals, and vendor dashboards.
+- Seller-owned product listings and multi-vendor order splitting.
+- Marketplace commissions, vendor payout schedules, and third-party inventory reconciliation.
+
+---
+
+## 3. Product Catalog Scope
+
+The NovaStore catalog is organized into 8 primary product domains:
+
+| Category Domain               | Scope & Examples                                                                                                                                   |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. PC Components**          | CPUs, GPUs, Motherboards, RAM, NVMe SSDs, HDDs, Power Supplies (PSUs), PC Cases, CPU Coolers (AIO/Air), Case Fans, Thermal Paste, Expansion Cards. |
+| **B. Prebuilt Computers**     | High-performance Gaming PCs, Content Creation & Engineering Workstations, AI/ML Development Rigs, Office Systems.                                  |
+| **C. Monitors & Displays**    | High-refresh Gaming Displays (2K/4K/OLED), Color-accurate Creative Monitors, Productivity Displays, Secondary Monitors, Arms & Mounts.             |
+| **D. Gaming Peripherals**     | Mechanical Keyboards, Gaming Mice, Audiophile/Gaming Headsets, Broadcast Microphones, Webcams, Mousepads, Gamepads.                                |
+| **E. Keyboard Components**    | Custom Keyboard Kits, Cases (Aluminum/Polycarbonate), Mechanical Switches, Keycap Sets, Switch Plates, Stabilizers, Hot-swap PCBs, Lubing Tools.   |
+| **F. Desk Setup**             | Ergonomic Standing Desks, Gaming Chairs, Ergonomic Office Chairs, Gas-spring Monitor Arms, Desk Mats, Lightbars, Cable Organizers.                 |
+| **G. Networking**             | Wi-Fi 6/7 Routers, Managed/Unmanaged Switches, PCIe/USB Network Adapters, High-grade Ethernet Cabling, Patch Panels.                               |
+| **H. Storage & Connectivity** | High-speed External SSDs/HDDs, Thunderbolt/USB4 Docks, Powered USB Hubs, Memory Cards & Readers, Display Cables.                                   |
+
+---
+
+## 4. Main Customer Experiences
+
+```
+                                +-----------------------------------+
+                                |     NovaStore Shopping Flows      |
+                                +-----------------+-----------------+
+                                                  |
+         +------------------------+---------------+------------------------+
+         |                        |                                        |
+         v                        v                                        v
++------------------+    +--------------------+                   +--------------------+
+|    PC Builder    |    | Full Setup Builder |                   | Product Customizer |
++------------------+    +--------------------+                   +--------------------+
+| - CPU Socket     |    | - Display Ports    |                   | - Layout & PCB     |
+| - RAM Topology   |    | - Desk Dimensions  |                   | - Switch Profile   |
+| - GPU Clearance  |    | - Refresh Rates    |                   | - Plate & Keycaps  |
+| - PSU Wattage    |    | - Arm Weight Limit |                   | - Case Material    |
+| - Cooler Height  |    | - Cable Routing    |                   | - Stabilizers      |
++------------------+    +--------------------+                   +--------------------+
+```
+
+1. **PC Builder**: A guided component selector enforcing physical and electrical rules (socket matching, cooler height vs case clearance, GPU length vs front radiator, PSU wattage overhead).
+2. **Full Gaming Setup Builder**: A holistic workspace planner coordinating ergonomics, display resolutions, port bandwidth, desk dimensions, and monitor arm capacities.
+3. **Product Customizer**: A specialized customizer starting with mechanical keyboards, validating compatibility between switch types, plate mountings, PCB form factors, and keycap profiles.
+
+---
+
+## 5. Technology Stack
+
+### Frontend Application (`apps/web`)
+
+- **Framework & Bundler**: React 18, TypeScript, Vite
+- **Routing**: React Router 6 (SPA with nested layouts)
+- **State Management**: Zustand (client UI state), TanStack Query v5 (server cache & query deduplication)
 - **Styling**: Tailwind CSS, Lucide React icons
 - **Testing**: Vitest, React Testing Library, jsdom
 
-### Backend (`apps/api`)
+### Backend API (`apps/api`)
 
-- **Core**: NestJS 10, TypeScript
-- **Database ORM**: Prisma ORM, PostgreSQL 16
-- **Cache & Queue**: Redis 7, BullMQ
-- **Validation**: Zod (environment configs), class-validator & class-transformer (DTOs)
-- **API Documentation**: Swagger / OpenAPI (`/api/docs`)
-- **Security**: Helmet, rate-limiting, CORS, compression
+- **Framework**: NestJS 10 (Modular Monolith)
+- **Persistence**: Prisma ORM, PostgreSQL 16
+- **Cache & Message Broker**: Redis 7, BullMQ
+- **Validation & Serialization**: Zod (environment configuration), class-validator & class-transformer (DTOs)
+- **Documentation**: Swagger / OpenAPI 3.0 (`/api/docs`)
+- **Security**: Helmet, CORS origin restriction, rate-limiting, gzip compression
 - **Testing**: Jest, Supertest
 
 ### Shared Workspace Packages (`packages/`)
 
-- `@ecommerce/types`: Shared domain entities, API contracts, response envelopes
-- `@ecommerce/shared`: Cross-cutting constants, currency utilities, regex patterns
-- `@ecommerce/tsconfig`: Shared base, React, and NestJS compiler configurations
-- `@ecommerce/eslint-config`: Shared ESLint 9 flat configurations
+- `@ecommerce/types`: Shared domain contracts, API envelopes, VND currency representations
+- `@ecommerce/shared`: Currency formatting, cross-cutting constants, validation regexes
+- `@ecommerce/tsconfig`: Strict TypeScript configurations (Base, React, NestJS)
+- `@ecommerce/eslint-config`: Monorepo ESLint 9 Flat Config presets
 
 ### DevOps & Infrastructure
 
-- **Package Manager**: pnpm 9 Workspaces
-- **Containers**: Docker, Docker Compose (development & production)
-- **Reverse Proxy**: Nginx (Alpine, rate limiting, gzip, security headers)
-- **CI/CD**: GitHub Actions (PR quality gate and Main build pipeline)
-- **Target OS**: Ubuntu Server 22.04 / 24.04 LTS compatibility
+- **Package Management**: pnpm 9 Workspaces with unified lockfile
+- **Containerization**: Docker, Docker Compose (isolated dev and production stacks)
+- **Edge Routing**: Nginx (reverse proxy, rate-limiting zones, security headers)
+- **CI Pipelines**: GitHub Actions (pull request quality gates and main verification)
+- **Host Target**: Ubuntu Server 22.04 / 24.04 LTS and Windows 10/11 development workstations
 
 ---
 
-## 3. Architecture Overview
+## 6. Architecture Overview
+
+NovaStore adopts a **Modular Monolith** architecture for the backend and a **Feature-Driven** layout for the frontend, preserving domain boundaries while avoiding premature microservices overhead:
 
 ```
-                                [ Web Browser / Client ]
+                            [ Web Browser / Mobile Client ]
                                            |
-                                      (Port 80/443)
+                                       HTTP/HTTPS
                                            v
                              +---------------------------+
-                             |   Nginx Reverse Proxy     |
+                             |    Nginx Reverse Proxy    |
                              +-------------+-------------+
                                            |
                     +----------------------+----------------------+
                     |                                             |
-          /api/v1/* v                                   /* (SPA)  v
+         /api/v1/*  v                                   /* (SPA)  v
 +-------------------------------+             +-------------------------------+
-|     apps/api (NestJS)         |             |      apps/web (Vite/React)    |
-| - /health check endpoint      |             | - TanStack Query Provider     |
-| - Swagger OpenAPI docs        |             | - React Router Layouts        |
-| - Bounded Context Modules:    |             | - Feature-Based Modules:      |
-|   auth, users, catalog,       |             |   auth, products, cart,       |
-|   inventory, cart, checkout,  |             |   checkout, orders, payments  |
-|   orders, payments, etc.      |             +-------------------------------+
+|       NestJS Backend API      |             |     React 18 + Vite SPA       |
+|  - /health (Live & Ready)     |             |  - TanStack Query Client      |
+|  - Swagger Documentation      |             |  - Feature Bounded Modules:   |
+|  - Bounded Context Modules:   |             |    pc-builder, setup-builder, |
+|    auth, users, catalog,      |             |    keyboard-customizer, cart, |
+|    inventory, pc-build, cart, |             |    catalog, orders, ai-chat   |
+|    orders, payments, etc.     |             +-------------------------------+
 +---------------+---------------+
                 |
         +-------+-------+
@@ -102,127 +166,128 @@ The platform avoids premature microservices complexity by utilizing a Modular Mo
 
 ---
 
-## 4. Prerequisites
+## 7. Prerequisites
 
-Ensure your development environment meets these minimum requirements:
+Ensure your development workstation meets these minimum requirements:
 
-- **Node.js**: `>= 20.0.0` (Recommended: `22.20.0` or `.nvmrc`)
+- **Node.js**: `>= 20.0.0` (Recommended: `22.20.0` LTS pinned in `.nvmrc`)
 - **pnpm**: `>= 9.0.0` (`npm install -g pnpm@9.15.5`)
-- **Docker**: Docker Engine `>= 24.0` with Docker Compose v2
+- **Docker**: Docker Engine `>= 24.0` with Docker Compose v2 (e.g., Docker Desktop)
 - **Git**: `>= 2.40`
+- **Memory**: 16 GB RAM recommended for running dev containers and applications simultaneously.
 
 ---
 
-## 5. Installation Instructions
+## 8. Installation & Local Development
 
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/organization/ecommerce-platform.git
-   cd ecommerce-platform
-   ```
-
-2. **Copy environment variables:**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-3. **Install dependencies:**
-
-   ```bash
-   pnpm install
-   ```
-
-4. **Start local database and Redis services:**
-
-   ```bash
-   make dev-deps
-   # Or: docker compose -f infrastructure/docker/development/docker-compose.yml up -d
-   ```
-
-5. **Generate Prisma Client:**
-   ```bash
-   make db-generate
-   # Or: pnpm --filter @ecommerce/api db:generate
-   ```
-
----
-
-## 6. Development Commands
-
-| Command                              | Description                                                      |
-| ------------------------------------ | ---------------------------------------------------------------- |
-| `pnpm dev` or `make dev`             | Start Web frontend and NestJS API in parallel with hot reloading |
-| `pnpm dev:web`                       | Start only Web frontend development server (`localhost:3000`)    |
-| `pnpm dev:api`                       | Start only NestJS API server (`localhost:4000`)                  |
-| `pnpm build` or `make build`         | Build all shared packages and applications                       |
-| `pnpm lint` or `make lint`           | Run ESLint across all workspace packages                         |
-| `pnpm lint:fix`                      | Automatically fix ESLint violations                              |
-| `pnpm typecheck` or `make typecheck` | Run TypeScript compiler type checking across all workspaces      |
-| `pnpm format`                        | Format repository code with Prettier                             |
-| `pnpm format:check`                  | Verify repository formatting compliance                          |
-| `pnpm clean` or `make clean`         | Clean build artifacts and dist directories                       |
-
----
-
-## 7. Environment Configuration
-
-The application is configured using environment variables loaded from `.env`. A complete, documented template is provided in `.env.example`:
-
-| Variable            | Description                        | Default Development Value                                                                      |
-| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `NODE_ENV`          | Application environment mode       | `development`                                                                                  |
-| `API_PORT`          | Port for the NestJS API            | `4000`                                                                                         |
-| `API_PREFIX`        | Global API route prefix            | `/api/v1`                                                                                      |
-| `CORS_ORIGIN`       | Allowed CORS origins               | `http://localhost:3000`                                                                        |
-| `VITE_PORT`         | Port for Web frontend              | `3000`                                                                                         |
-| `VITE_API_BASE_URL` | Base URL for API requests from Web | `http://localhost:4000/api/v1`                                                                 |
-| `DATABASE_URL`      | PostgreSQL connection string       | `postgresql://ecommerce_user:ecommerce_dev_password@localhost:5432/ecommerce_db?schema=public` |
-| `REDIS_HOST`        | Redis host                         | `localhost`                                                                                    |
-| `REDIS_PORT`        | Redis port                         | `6379`                                                                                         |
-| `JWT_SECRET`        | Secret key for JWT access tokens   | `development-only-insecure-jwt-secret-key-32-chars-minimum`                                    |
-| `JWT_EXPIRES_IN`    | JWT access token expiration        | `7d`                                                                                           |
-
----
-
-## 8. Testing Commands
-
-| Command                                 | Scope                                 | Framework                      |
-| --------------------------------------- | ------------------------------------- | ------------------------------ |
-| `pnpm test:unit`                        | All unit & component tests            | Vitest & Jest                  |
-| `pnpm --filter @ecommerce/web test`     | Frontend UI & component tests         | Vitest + React Testing Library |
-| `pnpm --filter @ecommerce/api test`     | Backend service & controller tests    | Jest                           |
-| `pnpm --filter @ecommerce/api test:e2e` | Backend API endpoint integration      | Jest + Supertest               |
-| `pnpm test:e2e`                         | End-to-end user browser journey tests | Playwright                     |
-
----
-
-## 9. Docker Commands
-
-### Development Infrastructure (PostgreSQL & Redis)
+### 1. Clone Repository & Setup Environment
 
 ```bash
-# Start background services
+git clone https://github.com/HungTruong-github/E-commerce-Platform.git
+cd E-commerce-Platform
+
+# Copy local development configuration template
+cp .env.example .env
+```
+
+### 2. Install Monorepo Dependencies
+
+```bash
+pnpm install
+```
+
+### 3. Start Development Backing Services (PostgreSQL 16 & Redis 7)
+
+```bash
+make dev-deps
+# Alternatively:
+docker compose -f infrastructure/docker/development/docker-compose.yml up -d
+```
+
+### 4. Validate & Generate Prisma Client
+
+```bash
+make db-validate
+make db-generate
+```
+
+### 5. Start Full-Stack Applications in Development Mode
+
+```bash
+make dev
+# Alternatively:
+pnpm dev
+```
+
+Local service URLs:
+
+- **Web Frontend**: `http://localhost:3000`
+- **Backend REST API**: `http://localhost:4000/api/v1`
+- **Swagger Documentation**: `http://localhost:4000/api/docs`
+- **Aggregate Health Check**: `http://localhost:4000/api/v1/health`
+- **Liveness Probe**: `http://localhost:4000/api/v1/health/live`
+- **Readiness Probe**: `http://localhost:4000/api/v1/health/ready`
+
+---
+
+## 9. Development Commands
+
+| Command                                  | Description                                                    |
+| ---------------------------------------- | -------------------------------------------------------------- |
+| `pnpm dev` or `make dev`                 | Run Web frontend and NestJS API in parallel with hot reloading |
+| `pnpm dev:web`                           | Run only React Web frontend (`localhost:3000`)                 |
+| `pnpm dev:api`                           | Run only NestJS API server (`localhost:4000`)                  |
+| `pnpm build` or `make build`             | Build all shared packages and applications                     |
+| `pnpm lint` or `make lint`               | Run ESLint 9 Flat Config across all workspaces                 |
+| `pnpm lint:fix`                          | Automatically resolve autofixable ESLint violations            |
+| `pnpm typecheck` or `make typecheck`     | Run strict TypeScript compiler verification                    |
+| `pnpm format`                            | Reformat codebase with Prettier                                |
+| `pnpm format:check`                      | Verify codebase formatting compliance                          |
+| `pnpm db:validate` or `make db-validate` | Validate Prisma schema syntax and data source config           |
+| `pnpm clean` or `make clean`             | Clean all build artifacts and node_modules dist caches         |
+
+---
+
+## 10. Testing Commands
+
+| Command                                 | Scope                                     | Engine                         |
+| --------------------------------------- | ----------------------------------------- | ------------------------------ |
+| `pnpm test:unit`                        | All unit & component test suites          | Vitest & Jest                  |
+| `pnpm --filter @ecommerce/web test`     | Frontend component and hook tests         | Vitest + React Testing Library |
+| `pnpm --filter @ecommerce/api test`     | Backend service and controller unit tests | Jest                           |
+| `pnpm --filter @ecommerce/api test:e2e` | Backend HTTP route integration tests      | Jest + Supertest               |
+| `pnpm test:e2e`                         | End-to-end browser journey verification   | Playwright                     |
+
+---
+
+## 11. Docker Commands
+
+### Development Infrastructure (PostgreSQL 16 & Redis 7)
+
+```bash
+# Start background database and cache containers
 make dev-deps
 
-# Check status
+# Inspect container health
 docker compose -f infrastructure/docker/development/docker-compose.yml ps
 
-# View container logs
+# Follow container logs
 docker compose -f infrastructure/docker/development/docker-compose.yml logs -f
 
-# Stop background services
+# Stop development infrastructure (data preserved in named volumes)
 make dev-deps-down
+
+# Reset development databases completely (destroys data volumes)
+docker compose -f infrastructure/docker/development/docker-compose.yml down -v
 ```
 
 ### Production Stack Simulation
 
 ```bash
-# Build production multi-stage images
+# Build multi-stage production images (non-root runtimes)
 make docker-build-prod
 
-# Launch complete production stack (Gateway + Web + API + DB + Redis)
+# Launch production composition (Nginx gateway + Web + API + DB + Redis)
 make docker-up-prod
 
 # Stop production stack
@@ -231,47 +296,83 @@ make docker-down-prod
 
 ---
 
-## 10. Repository Structure
+## 12. Future AI Shopping Assistant Architecture (Planned)
+
+The planned AI Shopping Assistant utilizes a **backend-controlled Tool Calling architecture**. The AI model never connects directly to database infrastructure or client state:
+
+```
+[ Customer via React Chat UI ]
+               |
+               v
+  [ NestJS AI Orchestrator ]
+               |
+               v
+  [ LLM Provider Adapter ]
+               |
+               v
+  [ Allowlisted Tool Registry ]
+  ├── search_products
+  ├── get_product_details
+  ├── check_inventory
+  ├── validate_pc_build
+  ├── validate_setup
+  ├── calculate_build_price
+  ├── create_build_draft
+  └── add_build_to_cart (Requires explicit user confirmation)
+               |
+               v
+  [ Backend Business Services ]  <--- Enforces business rules, pricing, inventory
+               |
+               v
+    [ Prisma ORM & Database ]
+```
+
+### Key Security Safeguards
+
+1. **Zero Database Credentials for LLM**: The model never receives connection strings, credentials, or raw query privileges.
+2. **Server-Side Price & Stock Verification**: Every price calculation and stock reservation is executed server-side.
+3. **Explicit User Confirmation**: State-changing actions (such as adding a custom build to cart) strictly require explicit customer confirmation before dispatch.
+
+---
+
+## 13. Repository Structure
 
 ```text
 ecommerce-platform/
 ├── apps/
-│   ├── web/                     # React 18 + Vite frontend application
-│   └── api/                     # NestJS Modular Monolith backend application
+│   ├── web/                     # React 18 + Vite frontend SPA
+│   └── api/                     # NestJS Modular Monolith backend REST API
 ├── packages/
-│   ├── types/                   # Shared TypeScript domain contracts
-│   ├── shared/                  # Shared utilities and constants
-│   ├── tsconfig/                # Monorepo TypeScript configurations
-│   └── eslint-config/           # Monorepo ESLint configurations
+│   ├── types/                   # Shared TypeScript domain contracts & VND types
+│   ├── shared/                  # Shared utilities, currency formatters, constants
+│   ├── tsconfig/                # Strict base, React, and NestJS compiler configs
+│   └── eslint-config/           # Monorepo ESLint 9 Flat Config presets
 ├── infrastructure/
 │   ├── docker/
-│   │   ├── development/         # Dev compose (PostgreSQL, Redis)
-│   │   └── production/          # Prod Dockerfiles & compose
-│   ├── nginx/                   # Nginx reverse proxy configuration
-│   ├── monitoring/              # Prometheus configs
-│   └── scripts/                 # Operational shell utilities
-├── docs/                        # Architecture, deployment, development docs
-├── scripts/                     # Local setup & verification scripts
-├── tests/                       # E2E & integration suites
+│   │   ├── development/         # Local dev compose (PostgreSQL 16, Redis 7)
+│   │   └── production/          # Production multi-stage Dockerfiles & compose
+│   ├── nginx/                   # Reverse proxy, rate limiting, and SPA static configs
+│   ├── monitoring/              # Prometheus scrapers and metrics configs
+│   └── scripts/                 # Operational maintenance scripts (backups, wait-for-it)
+├── docs/
+│   ├── architecture/            # System overview, Modular Monolith, AI architecture
+│   ├── business/                # Retail business model, catalog, condition & warranty
+│   ├── database/                # Database design principles and considerations
+│   ├── development/             # Local setup, coding standards, Git workflow
+│   ├── security/                # Threat mitigation and security baseline
+│   └── adr/                     # Architecture Decision Records (ADRs)
+├── scripts/                     # Local developer onboarding scripts
+├── tests/                       # Cross-cutting integration and Playwright E2E tests
 ├── .github/workflows/           # GitHub Actions CI quality gates
-├── .husky/                      # Git pre-commit & commit-msg hooks
-├── pnpm-workspace.yaml          # Workspace topology definition
-├── package.json                 # Monorepo root scripts & devDependencies
-├── Makefile                     # Make CLI shortcuts
+├── .husky/                      # Git hooks (pre-commit lint-staged, commit-msg commitlint)
+├── pnpm-workspace.yaml          # Monorepo workspace boundaries
+├── package.json                 # Monorepo scripts and shared devDependencies
+├── Makefile                     # Developer CLI workflow shortcuts
 └── README.md                    # Project documentation
 ```
 
 ---
 
-## 11. Security Guidelines
-
-- **Zero Hardcoded Secrets**: Secrets are injected strictly via environment variables.
-- **Non-Root Containers**: Production Docker containers execute under dedicated non-root users (`node`, `nginx`).
-- **Internal Database Access**: In production Docker Compose, PostgreSQL and Redis are never exposed directly on host ports.
-- Refer to [Security Baseline](./docs/security/security-baseline.md) for complete details.
-
----
-
-## 12. License
+## 14. License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

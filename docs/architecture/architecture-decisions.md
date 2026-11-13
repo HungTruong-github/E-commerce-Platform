@@ -1,62 +1,45 @@
 # Architecture Decisions (ADR Summary)
 
-This document provides a consolidated log of key architectural decisions made for the platform. Detailed records are maintained in `docs/adr/`.
+This document provides a consolidated log of key architectural decisions made for NovaStore. Detailed individual records are maintained in `docs/adr/`.
 
 ---
 
 ## ADR-001: Monorepo with pnpm Workspaces
 
-- **Status:** Accepted
-- **Context:** An e-commerce platform requires synchronized coordination between the frontend application, the backend API, shared domain contracts, and tooling configs.
-- **Decision:** Use a single Git monorepo managed with **pnpm Workspaces**.
-- **Consequences:**
-  - Fast, deduplicated dependency installation with hard link symlink architecture.
-  - Zero divergence between frontend models and backend DTOs via `@ecommerce/types`.
-  - Single PR atomic reviews across full stack features.
+- **Status:** Accepted ([docs/adr/0001-monorepo-pnpm.md](../adr/0001-monorepo-pnpm.md))
+- **Decision:** Use a single Git monorepo governed by pnpm Workspaces with shared packages (`@ecommerce/types`, `@ecommerce/shared`, `@ecommerce/tsconfig`, `@ecommerce/eslint-config`).
 
 ---
 
-## ADR-002: Modular Monolith Backend with NestJS & Prisma
+## ADR-002: Modular Monolith Architecture over Microservices
 
-- **Status:** Accepted
-- **Context:** E-commerce systems carry rich domain rules (orders, catalog, payment, inventory). Microservices introduce operational complexity (network partitioning, distributed transactions, orchestration overhead) that slows down iteration.
-- **Decision:** Implement a **Modular Monolith** using NestJS, Prisma ORM, and PostgreSQL.
-- **Consequences:**
-  - Clean domain separation using NestJS bounded modules (`auth`, `catalog`, `cart`, `orders`, etc.).
-  - Compile-time dependency injection and testing ergonomics.
-  - Prisma provides type-safe query building and automated database migrations.
-  - Preserves an easy pathway to extract modules into independent services later if warranted by load patterns.
+- **Status:** Accepted ([docs/adr/0002-modular-monolith.md](../adr/0002-modular-monolith.md))
+- **Decision:** Implement a Modular Monolith backend using NestJS and Prisma ORM, avoiding premature microservices and orchestration complexity while enforcing strict domain module boundaries.
 
 ---
 
-## ADR-003: Feature-Based Architecture for React Frontend
+## ADR-003: Retailer-Owned Inventory Business Model (Model A)
 
-- **Status:** Accepted
-- **Context:** Large frontend codebases suffer from messy component sprawl when organized merely by technical layers (e.g., all components in one folder, all hooks in another).
-- **Decision:** Adopt **Feature-Driven Architecture** in `apps/web/src/features/`.
-- **Consequences:**
-  - Feature logic (state, API hooks, components, routes) lives within bounded domain folders (`features/auth`, `features/products`, `features/checkout`).
-  - Reusable presentation primitives live in `components/ui` with zero business logic.
-  - Enhances code discoverability and enables team ownership per feature.
+- **Status:** Accepted ([docs/adr/0003-retailer-owned-inventory-business-model.md](../adr/0003-retailer-owned-inventory-business-model.md))
+- **Decision:** Operate as a direct store-owned inventory business with unified quality inspection and warranties. Third-party marketplace functionality (vendor portals, seller commissions, order splitting) is explicitly excluded.
 
 ---
 
-## ADR-004: Redis and BullMQ for Asynchronous Jobs
+## ADR-004: Catalog Product vs Physical Inventory Stock Unit Distinction
 
-- **Status:** Accepted
-- **Context:** Order processing, notifications, payment webhook handling, and inventory synchronization require reliable asynchronous task handling outside the HTTP request lifecycle.
-- **Decision:** Use **Redis** as a caching and job queue broker with **BullMQ**.
-- **Consequences:**
-  - Ensures durable job persistence, automatic retries with exponential backoff, and concurrency control.
-  - Low latency in-memory queueing.
+- **Status:** Accepted ([docs/adr/0004-catalog-product-vs-physical-inventory-distinction.md](../adr/0004-catalog-product-vs-physical-inventory-distinction.md))
+- **Decision:** Separate universal catalog products from condition tiers (New vs Used) and individual physical stock units to support serialized used hardware with individual inspection grades and warranties.
 
 ---
 
-## ADR-005: Multi-Stage Docker Builds with Non-Root Runtimes
+## ADR-005: Separation of Three Distinct Configuration Experiences
 
-- **Status:** Accepted
-- **Context:** Container images must be small, fast to transfer, reproducible, and secure against container escape vulnerabilities.
-- **Decision:** Standardize on multi-stage Docker builds with Alpine base images, using the unprivileged `node` user for the backend and `nginxinc/nginx-unprivileged` for the frontend.
-- **Consequences:**
-  - Minimal image attack surface.
-  - Compliance with modern security baselines (CIS benchmarks, Kubernetes Pod Security Standards).
+- **Status:** Accepted ([docs/adr/0005-three-distinct-configuration-experiences.md](../adr/0005-three-distinct-configuration-experiences.md))
+- **Decision:** Separate PC Builder (hardware rules), Full Gaming Setup Builder (ergonomic & port constraints), and Modular Product Customizer (mechanical keyboard component rules) into dedicated workflows.
+
+---
+
+## ADR-006: Backend-Controlled AI Tool Calling Architecture
+
+- **Status:** Accepted ([docs/adr/0006-backend-controlled-ai-tool-calling-architecture.md](../adr/0006-backend-controlled-ai-tool-calling-architecture.md))
+- **Decision:** Orchestrate the AI Shopping Assistant via backend allowlisted tool calling without direct database access, enforcing server-side price verification and explicit customer confirmation.

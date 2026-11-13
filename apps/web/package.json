@@ -2,6 +2,7 @@
   "name": "@ecommerce/web",
   "version": "0.1.0",
   "private": true,
+  "description": "NovaStore – PC & Gaming Setup Customization frontend SPA",
   "type": "module",
   "scripts": {
     "dev": "vite",

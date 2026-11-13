@@ -7,27 +7,29 @@ export const HomePage: React.FC = () => {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center">
         <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-inset ring-brand-700/10">
-          Monorepo Architecture
+          Retailer-Owned Custom Commerce Platform
         </span>
         <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-          Modular E-commerce Platform
+          NovaStore – PC & Gaming Setup Customization
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600">
-          A high-performance monorepo foundation built with React, Vite, NestJS, Prisma, PostgreSQL,
-          and Redis.
+          A high-performance custom commerce foundation for PC hardware, prebuilts, gaming
+          peripherals, mechanical keyboard customization, desk setups, and networking with new &amp;
+          used inventory.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Button variant="primary">Explore Architecture</Button>
-          <Button variant="outline">API Documentation</Button>
+          <Button variant="primary">PC Builder</Button>
+          <Button variant="outline">Setup Customizer</Button>
         </div>
       </div>
 
       <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <Layers className="h-8 w-8 text-brand-600 mb-4" />
-          <h2 className="text-lg font-semibold text-slate-900">Feature-Based Web</h2>
+          <h2 className="text-lg font-semibold text-slate-900">PC &amp; Setup Builder</h2>
           <p className="mt-2 text-sm text-slate-500">
-            React 18, Vite, TanStack Query, Zustand, and Tailwind CSS.
+            Interactive PC configuration, mechanical keyboard customization, and full workspace
+            builders.
           </p>
         </div>
 
@@ -41,17 +43,21 @@ export const HomePage: React.FC = () => {
 
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <Database className="h-8 w-8 text-indigo-600 mb-4" />
-          <h2 className="text-lg font-semibold text-slate-900">Data & Queue Engine</h2>
+          <h2 className="text-lg font-semibold text-slate-900">
+            Retailer Inventory (New &amp; Used)
+          </h2>
           <p className="mt-2 text-sm text-slate-500">
-            PostgreSQL 16, Prisma ORM, and Redis with BullMQ support.
+            Direct inventory management with condition grades, inspections, warranties, and integer
+            VND pricing.
           </p>
         </div>
 
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <ShieldCheck className="h-8 w-8 text-amber-600 mb-4" />
-          <h2 className="text-lg font-semibold text-slate-900">Quality Gates</h2>
+          <h2 className="text-lg font-semibold text-slate-900">AI Assistant Ready</h2>
           <p className="mt-2 text-sm text-slate-500">
-            Strict TypeScript, ESLint 9, Prettier, Husky, Vitest, and Jest.
+            Backend-controlled AI tool calling architecture for recommendations and inventory
+            queries.
           </p>
         </div>
       </div>

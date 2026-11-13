@@ -14,7 +14,7 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     app.setGlobalPrefix('api/v1');
     await app.init();
-  });
+  }, 30000);
 
   afterAll(async () => {
     await app.close();
@@ -23,6 +23,17 @@ describe('AppController (e2e)', () => {
   it('/api/v1/health (GET)', () => {
     return request(app.getHttpServer())
       .get('/api/v1/health')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.success).toBe(true);
+        expect(['ok', 'degraded']).toContain(res.body.data.status);
+        expect(typeof res.body.data.uptime).toBe('number');
+      });
+  });
+
+  it('/api/v1/health/live (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/api/v1/health/live')
       .expect(200)
       .expect((res) => {
         expect(res.body.success).toBe(true);

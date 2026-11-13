@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Production-Ready Modular E-commerce Platform Monorepo",
+  "description": "NovaStore – PC & Gaming Setup Customization Commerce Platform Monorepo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HungTruong-github/E-commerce-Platform.git"
+  },
   "packageManager": "pnpm@9.15.5",
   "engines": {
     "node": ">=20.0.0",
@@ -20,6 +24,7 @@
     "test": "pnpm -r run test",
     "test:unit": "pnpm --filter @ecommerce/web test -- --run && pnpm --filter @ecommerce/api test",
     "test:e2e": "playwright test",
+    "db:validate": "pnpm --filter @ecommerce/api db:validate",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "clean": "pnpm -r run clean",

@@ -1,4 +1,4 @@
-.PHONY: help install dev dev-deps dev-deps-down build lint typecheck test clean docker-build-prod docker-up-prod docker-down-prod db-generate db-migrate
+.PHONY: help install dev dev-deps dev-deps-down build lint typecheck test clean docker-build-prod docker-up-prod docker-down-prod db-generate db-migrate db-validate
 
 # Default target
 help:
@@ -12,6 +12,7 @@ help:
 	@echo "  make typecheck       - Run TypeScript compiler checks across all workspaces"
 	@echo "  make test            - Run all test suites"
 	@echo "  make clean           - Remove build artifacts and temporary files"
+	@echo "  make db-validate     - Validate Prisma schema syntax"
 	@echo "  make db-generate     - Generate Prisma Client"
 	@echo "  make db-migrate      - Run Prisma database migrations"
 
@@ -41,6 +42,9 @@ test:
 
 clean:
 	pnpm clean
+
+db-validate:
+	pnpm --filter @ecommerce/api db:validate
 
 db-generate:
 	pnpm --filter @ecommerce/api db:generate

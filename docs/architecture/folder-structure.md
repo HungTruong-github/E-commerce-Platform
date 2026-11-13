@@ -17,6 +17,11 @@ ecommerce-platform/
 │   │   │   │   ├── ui/                   # Dumb design system primitives (Button, Input, Modal)
 │   │   │   │   └── common/               # Shared composite components (Header, Footer)
 │   │   │   ├── features/                 # Bounded feature contexts
+│   │   │   │   ├── pc-builder/           # Interactive desktop PC configurator
+│   │   │   │   ├── setup-builder/        # Full gaming & workspace setup builder
+│   │   │   │   ├── keyboard-customizer/  # Modular mechanical keyboard customizer
+│   │   │   │   ├── catalog/              # Product browsing across 8 categories
+│   │   │   │   ├── ai-assistant/         # AI conversational shopping assistant UI
 │   │   │   │   ├── auth/                 # Authentication, login, register views
 │   │   │   │   ├── products/             # Product grid, filters, detail views
 │   │   │   │   ├── cart/                 # Cart sidebar, items summary
@@ -86,15 +91,15 @@ ecommerce-platform/
 │   └── scripts/                          # Operational shell helpers (wait-for-it, backups)
 │
 ├── docs/                                 # Architectural and operational documentation
-│   ├── architecture/                     # System design, ADR summary, directory structure
-│   ├── development/                      # Setup guide, coding standards, Git workflow
+│   ├── architecture/                     # System design, Modular Monolith, AI architecture, ADR index
+│   ├── business/                         # Retail business model, catalog, condition & warranty, experiences
+│   ├── database/                         # Database design considerations and limitations
+│   ├── development/                      # Setup guide, coding conventions, Git workflow
 │   ├── deployment/                       # Docker guide and production deployment strategy
-│   ├── security/                         # Threat model, baseline practices, checklist
-│   ├── business/                         # Business domain documentation
-│   ├── database/                         # Schema models and migration rules
-│   ├── api/                              # API design conventions
+│   ├── security/                         # Threat model, baseline practices, AI tool safeguards
+│   ├── api/                              # REST API design conventions
 │   ├── testing/                          # Testing pyramid and practices
-│   └── adr/                              # Architecture Decision Records
+│   └── adr/                              # Architecture Decision Records (ADR-0001 through ADR-0006)
 │
 ├── scripts/                              # Root maintenance and setup scripts
 ├── tests/

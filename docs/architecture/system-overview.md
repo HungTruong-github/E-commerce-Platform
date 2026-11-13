@@ -1,13 +1,15 @@
-# System Architecture Overview
+# NovaStore – System Architecture Overview
 
 ## 1. Executive Summary
 
-This repository contains the enterprise monorepo for the **NovaStore E-commerce Platform**. It is engineered following the **Modular Monolith** architectural paradigm for the backend and a **Feature-Driven Architecture** for the frontend, optimized for developer ergonomics, strong typing across boundaries, predictable releases, and high horizontal scalability.
+**NovaStore** is a specialized custom commerce platform for computer hardware, prebuilt PCs, custom PC builds, mechanical keyboard customization, gaming and office desk setups, networking devices, and storage accessories.
+
+The system is architected as a **Modular Monolith** for the backend (`apps/api`) and a **Feature-Driven Single Page Application (SPA)** for the frontend (`apps/web`), governed by a unified pnpm monorepo.
 
 ```
                            +------------------------+
                            |  Client Applications   |
-                           | (Web SPA, Mobile, etc) |
+                           | (Web SPA, Mobile Web)  |
                            +-----------+------------+
                                        |
                                        | HTTPS / WSS
@@ -21,50 +23,47 @@ This repository contains the enterprise monorepo for the **NovaStore E-commerce 
                      |                                   |
          /api/v1/*   v                       /* (Assets) v
 +-----------------------------+           +-----------------------------+
-|        NestJS Backend       |           |     React 18 + Vite SPA     |
-|      (Modular Monolith)     |           |     (Nginx Static Server)   |
+|    NestJS Backend API       |           |     React 18 + Vite SPA     |
+|   (Modular Monolith)        |           |  (Nginx Static File Server) |
 |                             |           +-----------------------------+
-| - Health & System           |
-| - Authentication & Identity |
+| - Health (Liveness/Ready)   |
+| - Identity & Access (Auth)  |
 | - Product Catalog           |
-| - Cart & Checkout Engine    |
+| - PC Configurator Engine    |
+| - Setup Configurator Engine |
+| - Keyboard Customizer       |
+| - Retail Inventory (New/Used|
+| - Shopping Cart & Checkout  |
 | - Orders & Fulfillment      |
-| - Payment Gateway Adapter   |
-| - Promotions & Coupons      |
-| - Reviews & Ratings         |
-| - Notifications Worker      |
+| - Payments Gateway Adapter  |
+| - AI Assistant Orchestrator |
 +--------------+--------------+
                |
       +--------+--------+
       |                 |
       v                 v
 +------------+   +------------+
-| PostgreSQL |   | Redis 7    |
-| 16 (OLTP)  |   | (Queue &   |
-| via Prisma |   | Cache)     |
+| PostgreSQL |   |  Redis 7   |
+| 16 (Prisma)|   |  (BullMQ)  |
 +------------+   +------------+
 ```
 
 ## 2. Core Architectural Principles
 
 1. **Modular Monolith over Premature Microservices:**
-   - Single deployable backend artifact (`@ecommerce/api`) with strictly decoupled domain boundaries.
-   - Modules communicate across clear internal interfaces or domain events, preventing spaghetti dependencies.
-   - Direct database joins across bounded contexts are strictly avoided.
-   - Future extraction into standalone microservices requires minimal friction if scaling bottlenecks arise.
+   - Single deployable backend artifact (`@ecommerce/api`) with bounded contexts.
+   - Modules communicate through explicit TypeScript interfaces and events, not cross-module database foreign key mutations.
+   - Extensibility to extract standalone microservices later if load characteristics diverge.
 
-2. **Single Source of Truth Contracts (`@ecommerce/types`):**
-   - Shared domain entities, API request/response envelopes, enums, and pagination contracts are maintained in a standalone workspace package.
-   - Frontend and backend share exact contract types, eliminating runtime schema drift.
+2. **Retailer-Owned Inventory (Model A):**
+   - Direct store inventory management. The platform manages its own stock, physical condition grading (New, Like New, Good, Fair), and warranties.
+   - Marketplace abstractions (multi-vendor splitting, vendor registration, vendor payouts) are excluded.
 
-3. **Strict Boundaries & Encapsulation:**
-   - Frontend UI components are separated from API communication layers and state machines.
-   - Backend controllers only validate and route requests, delegating domain logic to injectable services and data access to repository/Prisma layers.
+3. **Single Source of Truth Contracts (`@ecommerce/types`):**
+   - Shared domain contracts, response envelopes (`ApiResponse<T>`, `PaginatedResponse<T>`, `ApiErrorResponse`), and integer VND monetary representations.
 
-4. **Security by Default:**
-   - Zero hardcoded credentials or fallback secrets in production.
-   - Non-root container execution across all Docker environments.
-   - Default denial of cross-origin requests, strict CORS validation, HTTP security headers via Helmet, and rate limiting.
+4. **Guided Customization Engines:**
+   - Decoupled configuration validation engines: PC Builder (hardware rules), Full Setup Builder (ergonomic & port constraints), and Mechanical Keyboard Customizer (component compatibility).
 
-5. **Operational Parity:**
-   - Development and production Docker compose specifications share container health check protocols, networking topologies, and environment validation rules.
+5. **Backend-Controlled AI Orchestration:**
+   - Future AI Shopping Assistant operates strictly via server-side allowlisted Tool Calling, enforcing business validation, pricing integrity, and explicit customer confirmation.

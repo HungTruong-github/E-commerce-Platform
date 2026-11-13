@@ -49,6 +49,11 @@ jobs:
       - name: Lint Workspace
         run: pnpm lint
 
+      - name: Validate Prisma Schema
+        env:
+          DATABASE_URL: 'postgresql://ecommerce_user:ecommerce_dev_password@localhost:5432/ecommerce_db?schema=public'
+        run: pnpm db:validate
+
       - name: Typecheck Workspace
         run: pnpm typecheck
 
@@ -57,6 +62,10 @@ jobs:
 
       - name: Run Available Tests
         run: pnpm test:unit
+
+      - name: Dependency Security Audit
+        run: pnpm audit --audit-level=high
+        continue-on-error: true
 
   docker-build-verification:
     name: Container Build Verification

@@ -46,3 +46,14 @@ This document outlines the security controls, baseline configurations, and archi
 - **Password Hashing:** Argon2id or bcrypt with cost factor >= 12.
 - **Tokens:** JWT signed with HMAC-SHA256 or asymmetric RS256 with short expiration (15m access, 7d refresh in HttpOnly cookies).
 - **Data at Rest:** Sensitive credentials stored as cryptographically hashed or encrypted values.
+
+---
+
+## 5. AI Tool Calling Security Safeguards (Planned Implementation)
+
+1. **No Direct Database Access**: LLM never receives database credentials, connection strings, or raw query privileges.
+2. **Zero Arbitrary SQL Execution**: The model is prohibited from generating or executing SQL commands directly.
+3. **Allowlisted Tools Only**: All AI interactions must pass through validated, strongly typed tool schemas.
+4. **Server-Side Rule Enforcement**: Pricing, stock availability, and hardware compatibility are recomputed deterministically on the server.
+5. **Customer Confirmation**: State-changing operations (such as adding items to cart) strictly require explicit customer confirmation before dispatch.
+6. **Authorization Check on Every Action**: Active customer session is verified for all state mutations.
